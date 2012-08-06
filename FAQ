@@ -1,4 +1,6 @@
+ #=============================================
  export http_proxy=http://127.0.0.1:8087
  unset http_proxy
 
  gnome-session-properties
+fsfsd

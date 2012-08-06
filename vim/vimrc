@@ -1,74 +1,259 @@
 "*************************************************************************
-"基本配置
+"                               基本配置
 "*******************************************************
 "color scheme
 "colorscheme cobalt
 colorscheme desert
+
 " 不要使用vi的键盘模式，而是vim自己的
 set nocompatible
+
 " more powerful backspacing
 set backspace=indent,eol,start
+
 "显示行号
-"set nu
-set nu sts=4 ts=4 sw=4 et si ai
+set nu 
+set expandtab
+set shiftwidth=4 
+set tabstop=4 
+set expandtab 
+
+"set softtabstop=4
+"autocmd FileType python setlocal et sta sw=4 sts=4
+
 "语法高亮
 syntax on
+
 "允许鼠标
 set mouse=a
+
 "显示标尺
 set ruler
+
 "突出显示当前行
 "set cursorline
+
 "高亮显示匹配的括号
 set showmatch
+
 "匹配括号高亮的时间
 set matchtime=2
-" 显示中文帮助
-if version >= 603
-    set helplang=cn
-"    set encoding=utf-8
-endif
+
 " 设置当文件被改动时自动载入
 set autoread
 "自动保存
 set autowrite
+
 "允许插件  
 filetype on
 filetype plugin on
 filetype indent on
+
 "共享剪贴板  
 set clipboard+=unnamed 
+
 "从不备份  
 set nobackup
 set noswapfile
+
 " 自动缩进
 set autoindent
 set cindent
-" Tab键的宽度
-set tabstop=4
-" 统一缩进为4
-set softtabstop=4
-set shiftwidth=4
+
 "字体编码
-set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
-set termencoding=utf-8
+"set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
+"set termencoding=utf-8
 set encoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936
-set fileencoding=utf-8
+"set fileencodings=ucs-bom,utf-8,cp936
+"set fileencoding=utf-8
 
 " 我的状态行显示的内容（包括文件类型和解码）
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
-set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+"set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
 " " 总是显示状态行
+" set laststatus=2
+"命令行（在状态行下）的高度，默认为1，这里是2
+set cmdheight=2
+
+highlight Pmenu    guibg=darkgrey  guifg=black
+highlight PmenuSel guibg=lightgrey guifg=black
+
+"智能Tab
+" Map <Tab> to either actually insert a <Tab> if
+" the current line is currently only whitespace, or start a omni
+" completion operation.
+function! CleverTab()
+    if strpart(getline('.'), 0, col('.')-1) =~ '^\s*$'
+        return "\<Tab>"
+    else
+        let current_path = bufname("%")  " get name of current buffer
+        let current_path = system("dirname " . current_path)
+        "execute "cd " . current_path
+       	"execute "silent !ctags -R -f /tmp/tags ."
+        return "\<C-X>\<C-O>"
+    endif
+endfunction
+inoremap <Tab> <C-R>=CleverTab()<CR>
+
+"********************************************************
+"					      高级组合键
+"F2 打开关闭行号
+"F3 打开关闭TagList
+"F5 运行python程序
+"F7 检查python语法
+"
+"                           General
+"
+"*********************************************************"
+"
+"一些组合键
+nmap <leader>w :w!<cr>          " ->强行保存        
+nmap <leader>q :q!<cr>          " ->强行不保存退出
+nmap <leader>wq :wq<cr>         " ->保存退出
+"窗口切换
+map <C-j> <C-W>j           " ->切换到下方窗口
+map <C-k> <C-W>k           " ->切换到上方窗口
+map <C-h> <C-W>h           " ->切换到左方窗口
+map <C-l> <C-W>l           " ->切换到右方窗口
+
+
+"标签功能
+" shift tab pages
+map <S-Left> :tabp<CR>
+map <S-Right> :tabn<CR>
+"
+"
+"
+"关闭显示行号
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+
+"======================关于自动补全 =====================
+"turn on Omni completion
+"python
+autocmd FileType python setlocal foldmethod=indent
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+autocmd FileType c set ofu=ccomplete#Complete
+autocmd FileType php set ofu=phpcomplete#CompletePHP
+"autocmd FileType python set ofu=pythoncomplete#Complete
+autocmd FileType javascript set ofu=javascriptcomplete#CompleteJS
+autocmd FileType html set ofu=htmlcomplete#CompleteTags
+autocmd FileType css set ofu=csscomplete#CompleteCSS
+autocmd FileType xml set ofu=xmlcomplete#CompleteTags
+
+"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+set wildmenu                " 命令行补全增强模式,在输入命令时列出匹配项目
+" 插入模式下补全功能的显示方式，分别支持弹出菜单式、插入匹配的最长文本、在预览窗口里显示
+"set completeopt=menu,longest,preview
+set completeopt=menu,longest
+set pumheight=15            " 插入模式下弹出补全菜单的最大显示项目数
+set lines=40                " 设置窗口行高
+set columns=130             " 设置窗口宽度
+winpos 50 0             " 设置初始窗口的坐标位置，相对于左上角的像素x,y
+"set equalalways            " 窗口在分割或关闭某窗口时自动使用相同的尺寸
+"set completeopt+=longest
+ 
+"离开插入模式后自动关闭预览窗口
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+ 
+"回车即选中当前项
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+ 
+"上下左右键的行为
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+
+"========================================================="
+"                             Python
+
+"=============================Python 语法检查=============
+" 禁止PyFlakes使用QuickFix，这样在按下<F7>时会调用flake8，而有对于代码编辑时的错误仍能得到有效的提示
+let g:pyflakes_use_quickfix = 0
+" 如有需要，可设置忽略部分错误
+let g:flake8_ignore="E302"
+autocmd BufWritePost *.py call Flake8()
+"补全
+
+"自动运行
+map <F5> :!python2.7 %
+
+
+"*****************************************************
+"                             插件配置
+"********************************************************
+
+
+"=========================ctags配置
+"function! UPDATE_TAGS()
+"  let _f_ = expand("%:p")
+"  let _cmd_ = '"ctags -a -f /dvr/tags --c++-kinds=+p --fields=+iaS --extra=+q " ' . '"' . _f_ . '"'
+"  let _resp = system(_cmd_)
+"  unlet _cmd_
+"  unlet _f_
+"  unlet _resp
+"endfunction
+"autocmd BufWrite *.cpp,*.h,*.c call UPDATE_TAGS()
+"autocmd BufWrite *.cpp,*.h,*.c,*.py call !ctags -R 
+
+"taglist
+"开关tag窗口
+nnoremap <silent> <F3> :TlistToggle<CR>
+let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+let Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
+let Tlist_Use_Left_Window = 1         "在右侧窗口中显示taglist窗口
+
+"minibuffer
+let g:miniBufExplMapCTabSwitchBufs=1
+let g:miniBufExplMapWindowsNavVim=1
+let g:miniBufExplMapWindowNavArrows=1
+
+"
+"Vundle
+set nocompatible               " be iMproved
+filetype off                   " required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+ " let Vundle manage Vundle
+ " required! 
+Bundle 'gmarik/vundle'
+
+ " My Bundles here:
+ "
+ " original repos on github
+ "Bundle 'tpope/vim-fugitive'
+ "Bundle 'Lokaltog/vim-easymotion'
+ "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+ "Bundle 'tpope/vim-rails.git'
+ " vim-scripts repos
+ "Bundle 'L9'
+ "Bundle 'FuzzyFinder'
+ " non github repos
+ "Bundle 'git://git.wincent.com/command-t.git'
+ " ...
+
+ filetype plugin indent on     " required!
+
+ " Brief help
+ " :BundleList          - list configured bundles
+ " :BundleInstall(!)    - install(update) bundles
+ " :BundleSearch(!) foo - search(or refresh cache first) for foo
+ " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+ "
+ " see :h vundle for more details or wiki for FAQ
+ " NOTE: comments after Bundle command are not allowed..
+
+ " Vim Power Lin
  set laststatus=2
-" " 命令行（在状态行下）的高度，默认为1，这里是2
- set cmdheight=1
+ set t_Co=256
+ let g:Powerline_symbols='unicode'
 
-"********************************************************
-"高级组合键
-
-
-"
-"********************************************************
-"插件配置
-"
+"****************************************************************
+ "NERDTree plugin
+let NERDTreeWinPos = "right" "where NERD tree window is placed on the screen
+"let NERDTreeWinSize = 31 "size of the NERD tree
+nmap <F12> <ESC>:NERDTreeToggle<RETURN>" Open and close the NERD_tree.vim separately
