@@ -1,0 +1,66 @@
+!!title
+URxvt.title:URxvrt-Jason
+!! 设置 Xftp.dpi(字体分辨率）
+Xft.dpi: 96
+Xft.hinting: 1
+Xft.hintstyle: hintslight
+Xft.antialias: 1
+Xft.rgba: rgb
+!!URxvt.geometry: 90x25+180+200
+!!Rxvt.menu: /etc/X11/rxvt.menu
+!! coding
+Rxvt.multichar_encoding: utf-8
+Rxvt.imLocale: zh_CN.UTF-8
+URxvt.preeditType: Root !!使urxvt启动速度加快
+URxvt.depth: 32 !!透明必须
+URxvt.background:[80]black
+URxvt.foreground:white
+URxvt.colorBD:yellow
+URxvt.colorUL:Green
+URxvt.color0: #000000
+URxvt.color1: #CC0000
+URxvt.color2: #4E9A06
+URxvt.color3: #C4A000
+URxvt.color4: #3465A4
+URxvt.color5: #75507B
+URxvt.color6: #06989A
+URxvt.color7: #D3D7CF
+URxvt.color8: #555753
+URxvt.color9: #EF2929
+URxvt.color10: #8AE234
+URxvt.color11: #FCE94F
+URxvt.color12: #729FCF
+URxvt.color13: #AD7FA8
+URxvt.color14: #34E2E2
+URxvt.color15: #EEEEEC
+
+URxvt.font: xft:Ubuntu Mono:pixelsize=16:antialias=True,\
+xft:WenQuanYi Zen Hei Mono:size=20:antialias=True
+!URxvt.font:xft:terminus:medium:size=13:antialias=false,\
+!xft:wenquanyi bitmap song:medium:pixelsize=13:antialias=False
+!!滚动条设置
+URxvt.scrollBar:True
+URxvt.scrollBar_right:True
+URxvt.scrollBar_floating:False
+URxvt.scrollstyle:plain
+!!滚屏设置
+URxvt.mouseWheelScrollPage:True
+URxvt.scrollTtyOutput: False
+URxvt.scrollWithBuffer: True
+URxvt.scrollTtyKeypress: True
+!!光标闪烁
+URxvt.cursorBlink:True
+URxvt.saveLines:3000
+!!边框
+URxvt.borderLess: False
+!!开启标签功能
+!!URxvt.perl-ext-common: default,tabbed
+!! Tab set
+URxvt.perl-ext-common: default,tabbed
+URxvt.tabbed.tab-fg: 12
+URxvt.tabbed.tab-bg: 0
+URxvt.tabbed.tabbar-fg: 4
+
+!!输入法
+!!URxvt:imLocale:zh.CN.UTF-8 
+!!URxvt.inputMethod: fcitx
