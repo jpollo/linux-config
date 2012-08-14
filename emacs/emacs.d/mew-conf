@@ -1,0 +1,34 @@
+(autoload 'mew "mew" nil t)
+(autoload 'mew-send "mew" nil t)
+(if (boundp 'read-mail-command)
+(setq read-mail-command 'mew))
+(autoload 'mew-user-agent-compose "mew" nil t)
+(if (boundp 'mail-user-agent)
+(setq mail-user-agent 'mew-user-agent))
+(if (fboundp 'define-mail-user-agent)
+(define-mail-user-agent
+'mew-user-agent
+'mew-user-agent-compose
+'mew-draft-send-message
+'mew-draft-kill
+'mew-send-hook))
+
+(setq user-full-name "Jie Shen")
+(setq user-mail-address "jasonllinux@gmail.com")
+
+
+(setq mew-prog-ssl "/usr/bin/stunnel")
+(setq mew-ssl-verify-level 0)
+(setq mew-user "jasonllinux")
+(setq mew-mail-domain "gmail.com")
+(setq mew-pop-user "jasonllinux@gmail.com")
+(setq mew-pop-auth 'pass)
+(setq mew-pop-ssl t)
+(setq mew-pop-delete nil)
+(setq mew-pop-server "pop.gmail.com")
+(setq mew-pop-ssl-port "995")
+(setq mew-smtp-user "jasonllinux@gmail.com")
+(setq mew-smtp-ssl t)
+(setq mew-smtp-server "smtp.gmail.com")
+(setq mew-smtp-ssl-port "465")
+

@@ -1,0 +1,2 @@
+;;选中 ctrl+Return 替代 ctrl+Space
+(define-key global-map [C-return] 'set-mark-command)

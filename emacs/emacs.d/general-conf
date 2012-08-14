@@ -1,0 +1,43 @@
+;;去掉启动欢迎界面
+(setq inhibit-startup-message t)
+(setq initial-scratch-message "")
+
+;;把title设置为“文件名@pangzi's Emacs"
+(setq frame-title-format
+'("GNU/Emacs - [ " (buffer-file-name "%f \]"
+(dired-directory dired-directory "%b \]"))))
+
+;;显示日期
+(setq display-time-day-and-date t)
+;;显示时间
+(display-time) 
+;;时间为24小时制
+(setq display-time-24hr-format t)
+
+;;显示列号
+(column-number-mode t)
+;;显示行号
+(require 'linum)
+(global-linum-mode t)
+
+;; yes or no 变成y or n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;;颜色主题
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-arjen)
+
+;;禁止自动保存
+(auto-save-mode nil)
+;; 不产生备份文件
+(setq make-backup-files nil)
+
+;; 去掉工具栏
+;;(tool-bar-mode -1)
+;;去掉菜单栏
+;;(menu-bar-mode -1)
+
+
+;; 支持emacs和外部程序的粘贴
+(setq x-select-enable-clipboard t)

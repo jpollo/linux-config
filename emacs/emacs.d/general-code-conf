@@ -1,0 +1,18 @@
+;;语法加亮
+(global-font-lock-mode t)
+(setq font-lock-maximum-decoration t)
+
+;;高亮显示匹配的括号
+(show-paren-mode t)
+
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/auto-complete")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "/usr/share/emacs/site-lisp/auto-complete/ac-dict")
+(ac-config-default)
+;;(load-path "/usr/share/emacs/site-lisp/auto-complete")
+;;(require ‘auto-complete)
+;;(global-auto-complete-mode t)
+
+;;; 语法高亮
+(global-font-lock-mode t)
+(setq font-lock-maximum-decoration t)

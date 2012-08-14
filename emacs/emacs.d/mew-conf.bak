@@ -1,0 +1,43 @@
+;;用emacs发邮件
+(autoload 'mew "mew" nil t)
+(autoload 'mew-send "mew" nil t)
+(if (boundp 'read-mail-command)  ;;这句好像是用来一登mew就收邮件的吧
+    (setq read-mail-command 'mew))
+;; Optional setup (e.g. C-xm for sending a message): 按C-x m 的时候发邮件
+ (autoload 'mew-user-agent-compose "mew" nil t)
+ (if (boundp 'mail-user-agent)
+     (setq mail-user-agent 'mew-user-agent))
+ (if (fboundp 'define-mail-user-agent)
+     (define-mail-user-agent
+       'mew-user-agent
+       'mew-user-agent-compose
+       'mew-draft-send-message
+       'mew-draft-kill
+       'mew-send-hook))
+(setq mew-config-alist
+      '(
+        ;; Default fetch mailbox is IMAP
+        (default
+         (mailbox-type          imap)
+         (proto                 "%")
+         (imap-server           "imap.gmail.com")
+         (imap-user             "jasonllinux@gmail.com")
+         (name                  "Jie Shen")
+         (user                  "jasonllinux")
+         (mail-domain           "gmail.com")
+         (imap-ssl      . t)
+         (imap-ssl-port . "993");;这条必须得有，可以在gmail设置上查到，不加无法链接上gmail
+         (imap-size     . 0);;这两条一定要有.不然无法收邮件,0是不限制收的条数
+         (imap-delete . t);;同上
+         (smtp-ssl      . t)
+         (smtp-ssl-port . "465");;跟993道理一样
+         (imap-queue-folder     "%queue")
+         (imap-trash-folder     "%Trash") ;; This must be in concile with your IMAP box setup
+         (smtp-auth-list        ("PLAIN" "LOGIN" "CRAM-MD5")) 
+         (smtp-user             "jasonllinux@gmail.com")
+         (smtp-server           "smtp.gmail.com"))
+)
+)
+(setq mew-ssl-verify-level 0)
+(setq mew-prog-ssl "/usr/bin/stunnel")
+(setq mew-use-master-passwd t)

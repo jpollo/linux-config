@@ -1,0 +1,34 @@
+(setq load-path (cons (expand-file-name "~/.emacs.d")
+ load-path))
+ 
+(load "org-mode-conf")
+(load "general-conf")
+(load "encode-conf")
+(load "general-code-conf")
+(load "keymap-conf")
+(load "mew-conf")
+
+ ;;设置缩略词的文件？不大记得了 
+(setq abbrev-file-name "~/.emacs.d/.abbrev_defs") 
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mew")  
+
+;;python-mode
+(autoload 'python-mode "python-mode.el" "Python mode." t)
+(autoload 'python-mode "python-mode" "Python editing mode." t)
+(setq auto-mode-alist (append '(("/*.\.py$" . python-mode)) auto-mode-alist))
+;;
+(setq interpreter-mode-alist (cons '("python" . python-mode) interpreter-mode-alist))
+
+;;(define-abbrev-table 'python-mode-abbrev-table nil)
+
+
+;;一打开使用textmode
+;;setq default-major-mode 'text-mode')
+
+;;(add-to-list 'load-path "/usr/share/emacs/site-lisp/yas")
+;;(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet") 
+;;(require 'yasnippet) ;; not yasnippet-bundle
+;;(yas-global-mode 1)
+
+;;自动恢复桌面环境
+(desktop-save-mode 1)
