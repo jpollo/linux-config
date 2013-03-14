@@ -1,4 +1,4 @@
 ###Some My Linux Config files
-> Vim
-> Emacs
-> Bash
+> Vim  
+> Emacs  
+> Bash  
